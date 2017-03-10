@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# attach to a serial-over-lan session using ipmitool
+
+if [ $# -eq 0 ]
+  then
+    echo "======================="
+    echo "Attach to a serial-over-lan session using ipmitool."
+    echo "Usage: $0 <srv>"
+    echo "======================="
+exit 1
+fi
+TRGT=`echo $1 |sed 's/srv/bmc/'`
+
+ipmitool -I lanplus -H $TRGT -U admin -P admin sol activate

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# load a storage/disk kicksheet
+
+if [ $# -ne 2 ]
+  then
+    echo "======================="
+    echo "Load a disk kicksheet."
+    echo "Usage: $0 <disks.csv>"
+    echo "======================="
+exit 1
+fi
+TRGT=$1
+
+stack load storage partition file=$TRGT

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# edit cart
+
+if [ $# -ne 1 ]
+  then
+    echo "======================="
+    echo "Edit a cart."
+    echo "Usage: $0 <cart>"
+    echo "======================="
+exit 1
+fi
+CART=$1
+
+# edit cart
+vi /var/www/html/install/carts/$CART/nodes/cart-$CART-backend.xml

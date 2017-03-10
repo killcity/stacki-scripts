@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# set 'os' runaction flag on a node, so next time it reboots, it will boot the os
+
+if [ $# -eq 0 ]
+  then
+    echo "======================="
+    echo "set 'os' runaction flag on a node, so next time it reboots, it will boot the os."
+    echo "Usage: $0 <srv> or <srv*>"
+    echo "======================="
+exit 1
+fi
+TRGT=$1
+
+stack set host installaction $TRGT action=install-serial
+stack set host attr $TRGT attr=nukedisks value=true
+stack set host boot $TRGT action=os
+stack set host boot $TRGT action=install
+stack set host boot $TRGT action=os
+stack sync config
+
+# display current host boot
+stack list host boot $TRGT

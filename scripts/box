@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# set box for a node
+
+if [ $# -ne 2 ]
+  then
+    echo "======================="
+    echo "Set box for a node."
+    echo "Usage: $0 <srv> <box>"
+    echo "======================="
+exit 1
+fi
+TRGT=$1
+BOX=$2
+
+stack set host box $TRGT box=$BOX
+
+# display current host/box
+stack list host $TRGT

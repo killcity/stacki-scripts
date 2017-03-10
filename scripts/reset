@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# reboot a node using ipmitool
+
+if [ $# -eq 0 ]
+  then
+    echo "======================="
+    echo "Reboot a node using ipmitool."
+    echo "Usage: $0 <srv>"
+    echo "======================="
+exit 1
+fi
+TRGT=`echo $1 |sed 's/srv/bmc/'`
+
+ipmitool -I lanplus -H $TRGT -U admin -P admin power reset

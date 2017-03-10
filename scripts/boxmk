@@ -1,0 +1,12 @@
+#1/bin/sh
+if [ $# -eq 0 ]
+  then
+    echo "======================="
+    echo "Create box."
+    echo "Usage: $0 <box>"
+    echo "======================="
+exit 1
+fi
+
+stack add box $1
+stack list box $1

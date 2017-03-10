@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# set 'install' installaction flag on a node, so next time it reboots, it will rebuild 
+
+if [ $# -eq 0 ]
+  then
+    echo "======================="
+    echo "Set 'install' installaction flag on a node, so next time it reboots, it will rebuild."
+    echo "Usage: $0 <srv> or <srv*>" 
+    echo "======================="
+exit 1
+fi
+TRGT=$1
+
+stack set host installaction $TRGT action=install-serial
+stack set host runaction $TRGT action=os.localboot
+stack set host attr $TRGT attr=nukedisks value=true
+stack set host boot $TRGT action=install
+stack set host boot $TRGT action=os
+stack set host boot $TRGT action=install
+stack sync config
+
+# restart tracker (cuz it's buggy)
+service stack-tracker restart
+
+# display current host boot
+stack list host boot $TRGT

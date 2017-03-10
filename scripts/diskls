@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# list storage profiles
+
+stack list storage partition

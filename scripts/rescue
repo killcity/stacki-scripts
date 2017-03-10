@@ -1,0 +1,23 @@
+#!/bin/sh
+
+#  set 'rescue' runaction flag on a node, so next time it reboots, it will boot in rescue mode
+
+if [ $# -eq 0 ]
+  then
+    echo "======================="
+    echo "Set rescue runaction flag on a node, so next time it reboots, it will boot in rescue mode."
+    echo "Usage: $0 <srv> or <srv*>"
+    echo "======================="
+exit 1
+fi
+TRGT=$1
+
+stack set host runaction $TRGT action=rescue-serial
+stack set host boot $TRGT action=os
+stack set host boot $TRGT action=install
+stack set host boot $TRGT action=os
+stack sync config
+
+# display current host boot
+stack list host boot $TRGT
+stack list host $TRGT

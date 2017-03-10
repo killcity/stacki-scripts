@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# list host boot
+stack list host boot

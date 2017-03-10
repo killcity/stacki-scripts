@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# list carts
+
+stack list cart

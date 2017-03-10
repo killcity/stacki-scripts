@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# load a host kicksheet
+
+if [ $# -eq 0 ]
+  then
+    echo "======================="
+    echo "Load a host kicksheet."
+    echo "Usage: $0 <hosts.csv>"
+    echo "======================="
+exit 1
+fi
+TRGT=$1
+
+stack load hostfile file=$TRGT

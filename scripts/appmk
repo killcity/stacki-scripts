@@ -1,0 +1,14 @@
+#!/bin/sh
+if [ $# -eq 0 ]
+  then
+    echo "======================="
+    echo "Create appliance."
+    echo "Usage: $0 <appliance>"
+    echo "======================="
+exit 1
+fi
+
+stack add appliance $1
+stack set appliance attr $1 attr=kickstartable value=yes
+stack set appliance attr $1 attr=managed value=true
+stack set appliance attr $1 attr=node value=backend

@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# rebuild a host
+#
+
+if [ $# -ne 2 ]
+  then
+    echo "======================="
+    echo "Rebuild a host. This will:  a) toggle install flag and b) reset host."
+    echo "Usage: $0 <srv> <inv> (usually prod)"
+    echo "======================="
+exit 1
+fi
+
+TRGT=$1
+
+echo "Toggling Install Flag for $TRGT..."
+stack set host installaction $TRGT action=install-serial
+stack set host runaction $TRGT action=os.localboot
+stack set host attr $TRGT attr=nukedisks value=true
+stack set host boot $TRGT action=install
+stack set host boot $TRGT action=os
+stack set host boot $TRGT action=install
+stack sync config
+service stack-tracker restart
+
+# display current host boot
+stack list host boot $TRGT
+
+# reboot host
+echo "Rebooting host: $TRGT"
+BMC2SRV=`echo $1 |sed 's/srv/bmc/'`
+
+ipmitool -I lanplus -H $BMC2SRV -U admin -P admin power reset
