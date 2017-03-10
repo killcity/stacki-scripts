@@ -1,2 +1,2 @@
 # stacki-scripts
-Useful wrappers scripts to use with Stacki.
+Useful wrapper scripts to use with Stacki (https://github.com/StackIQ/stacki).
